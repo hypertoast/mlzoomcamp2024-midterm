@@ -1,13 +1,17 @@
 FROM python:3.10-slim
 
-# Set working directory to scripts directory
-WORKDIR /app/scripts
+# Set working directory
+WORKDIR /app
 
-# Copy only the requirements file first
-COPY requirements.txt /app/
+# Install pipenv
+RUN pip install pipenv
 
-# Install dependencies
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Copy Pipfile and Pipfile.lock
+COPY Pipfile Pipfile.lock ./
+
+# Install dependencies using pipenv
+# --system flag installs packages into the system python instead of creating a virtual environment
+RUN pipenv install --system --deploy
 
 # Copy files maintaining directory structure
 COPY models /app/models
@@ -26,4 +30,4 @@ USER api-user
 EXPOSE 9696
 
 # Command to run the application
-CMD ["python", "predict.py"]
+CMD ["python", "scripts/predict.py"]

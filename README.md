@@ -210,17 +210,36 @@ XGBoost selected as final model due to:
     "risk_score": "29.1%"
 }
 ```
-## Setup and Deployment
+
+## Setup and Development
+
+### Prerequisites
+- Python 3.10+
+- Pipenv (`pip install pipenv`)
 
 ### Local Development
+
+1. Clone the repository
 ```bash
-# Clone repository
 git clone https://github.com/hypertoast/mlzoomcamp2024-midterm
+cd mlzoomcamp2024-midterm
+```
 
-# Install dependencies
-pip install -r requirements.txt
+2. Set up Environment and Install Dependencies
+```bash
+# Install dependencies using Pipenv
+pipenv install
 
-# Run Flask API
+# Activate virtual environment
+pipenv shell
+```
+
+3. Run the Application
+```bash
+# Train model (if needed)
+python scripts/train.py
+
+# Start the API service
 python scripts/predict.py
 ```
 
