@@ -16,6 +16,12 @@ This project implements a machine learning system to predict diabetes risk based
 - Real-time API predictions
 - Containerized deployment
 
+### Screenshots
+
+![Deploy API service via Docker](screenshots/docker-service-deploy.JPG)
+
+![Calling Docker Deployed API locally](screenshots/calling-docker-flask-api-locally.JPG)
+
 ## Project Structure
 
 ```
