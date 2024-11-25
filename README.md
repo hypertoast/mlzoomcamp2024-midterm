@@ -39,6 +39,8 @@ This project implements a machine learning system for predicting diabetes risk b
 - Environment variable configuration
 
 ## Project Structure
+
+```
 project/
 ├── data/
 │   └── diabetes_dataset_processed.csv
@@ -54,6 +56,7 @@ project/
 │   └── predict.py             # Flask API implementation
 ├── Dockerfile
 └── requirements.txt
+```
 
 ## Model Details
 
@@ -134,25 +137,29 @@ docker run -p 9696:9696 diabetes-prediction-api
 ```
 ## Model Training Process
 
-### Initial Evaluation (evaluate-1.ipynb)
+1. Initial Evaluation (evaluate-1.ipynb)
+   - Base model implementation with XGBoost
+   - Performance assessment
+   - Validation metrics:
+     * AUC-ROC
+     * Precision & Recall
+     * Confusion Matrix
+     * Cross-validation
 
-- Base model implementation
-- Performance assessment
-- Validation strategy
+2. Threshold Optimization (evaluate-2.ipynb)
+   - Analysis of different prediction thresholds
+   - Optimization for medical context (prioritizing recall)
+   - Testing different thresholds:
+     * Conservative (0.5)
+     * Balanced (0.4)
+     * Sensitive (0.2)
+   - Risk category implementation
 
-
-### Model Tuning (evaluate-2.ipynb)
-
-- Threshold optimization
-- Hyperparameter tuning
-- Cross-validation
-
-
-### Final Implementation (evaluate_final.ipynb)
-
-- Best model selection
-- Final evaluation
-- Model export
+3. Final Implementation (evaluate_final.ipynb)
+   - Implementation with optimized threshold (0.2)
+   - Risk categorization system
+   - Final model export
+   - Comprehensive test cases
 
 ## Security Considerations
 
