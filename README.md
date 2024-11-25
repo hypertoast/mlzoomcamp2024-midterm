@@ -99,7 +99,7 @@ project/
     "HbA1c_category": "Prediabetes",
     "glucose_category": "Normal"
 }
-
+```
 
 ### Response Format
 ```json
@@ -109,7 +109,7 @@ project/
     "risk_category": "Low Risk",
     "risk_score": "29.1%"
 }
-
+```
 ## Setup and Deployment
 
 ### Local Development
@@ -122,7 +122,7 @@ pip install -r requirements.txt
 
 # Run Flask API
 python scripts/predict.py
-
+```
 
 ### Docker Deployment
 ```bash
@@ -131,7 +131,7 @@ docker build -t diabetes-prediction-api .
 
 # Run container
 docker run -p 9696:9696 diabetes-prediction-api
-
+```
 ## Model Training Process
 
 ### Initial Evaluation (evaluate-1.ipynb)
