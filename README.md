@@ -2,29 +2,65 @@
 
 # Diabetes Risk Prediction System
 
-## Project Overview
-This project implements a machine learning system for predicting diabetes risk based on various health metrics. It includes data preprocessing, model development, API implementation, and containerization.
+## Problem Description
+This project implements a machine learning system to predict diabetes risk based on various health metrics. The system analyzes patient health data including BMI, blood glucose levels, HbA1c, and other medical indicators to assess the likelihood of diabetes. This tool can assist healthcare providers in early risk assessment and preventive care decisions.
+
+### Target Audience
+- Healthcare providers
+- Medical screening facilities
+- Preventive care clinics
 
 ### Key Features
-- Machine learning model to predict diabetes risk
-- REST API for real-time predictions
-- Docker containerization for easy deployment
-- Detailed validation and model tuning
-- Risk categorization system
+- Risk categorization (Very Low to Very High)
+- Medical threshold-based predictions
+- Real-time API predictions
+- Containerized deployment
 
-## Technical Architecture
+## Dataset
 
-### Data Pipeline
-1. Data Ingestion & Cleaning
-   - Feature engineering
-   - Data validation
-   - Outlier handling
+The dataset includes the following features:
+- gender: Patient's gender
+- age: Patient's age
+- hypertension: Hypertension history (0 or 1)
+- heart_disease: Heart disease history (0 or 1)
+- smoking_history: Smoking status
+- bmi: Body Mass Index
+- HbA1c_level: Hemoglobin A1c level
+- blood_glucose_level: Blood glucose level
+- diabetes: Target variable (0 or 1)
 
-2. Model Development
-   - XGBoost classifier
-   - Cross-validation
-   - Hyperparameter tuning
-   - Threshold optimization for medical context
+
+## Exploratory Data Analysis
+
+Key insights from data analysis (`ingestion.ipynb`):
+1. Feature Distributions
+   - BMI distribution shows 47.1% overweight, 21.8% normal
+   - HbA1c levels: 42.7% prediabetic, 37.9% normal, 19.5% diabetic
+   - Blood glucose: 71.9% in diabetes range, 21.1% normal
+
+2. Feature Engineering
+   - Created medical category features (BMI, HbA1c, glucose)
+   - Combined heart_disease and hypertension into cardiovascular_risk
+   - Standardized numerical features
+
+3. Data Quality
+   - No missing values
+   - Outlier handling using Z-score method
+   - Feature correlations analyzed
+
+## Model Development
+
+1. Feature Selection
+   - Key correlations with diabetes:
+     * HbA1c_level: 0.296
+     * blood_glucose_level: 0.280
+     * cardiovascular_risk: 0.247
+     * bmi: 0.200
+
+2. Model Training
+   - Algorithm: XGBoost Classifier
+   - Optimized threshold: 0.2
+   - Risk categorization system implemented
 
 ### API Service
 - Flask-based REST API
@@ -49,11 +85,13 @@ project/
 │   ├── threshold_optimization.pkl
 │   └── evaluation_results.pkl
 ├── notebooks/
+│   ├── ingestion.ipynb         # Data Ingestion Pipeline + EDA
 │   ├── evaluate-1.ipynb        # Initial model evaluation
 │   ├── evaluate-2.ipynb        # Model tuning & optimization
 │   └── evaluate_final.ipynb    # Final model implementation
 ├── scripts/
 │   └── predict.py             # Flask API implementation
+│   └── train.py               # Model training script
 ├── Dockerfile
 └── requirements.txt
 ```
