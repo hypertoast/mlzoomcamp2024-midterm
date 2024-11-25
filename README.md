@@ -1,5 +1,9 @@
 # mlzoomcamp2024-midterm
 
+This is the mid-term project submission for the [MLZoomCamp 2024 cohort](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/master)
+
+[Evaluation Criteria](https://docs.google.com/spreadsheets/d/e/2PACX-1vQCwqAtkjl07MTW-SxWUK9GUvMQ3Pv_fF8UadcuIYLgHa0PlNu9BRWtfLgivI8xSCncQs82HDwGXSm3/pubhtml)
+
 # Diabetes Risk Prediction System
 
 ## Problem Description
