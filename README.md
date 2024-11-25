@@ -16,20 +16,6 @@ This project implements a machine learning system to predict diabetes risk based
 - Real-time API predictions
 - Containerized deployment
 
-## Dataset
-
-The dataset includes the following features:
-- gender: Patient's gender
-- age: Patient's age
-- hypertension: Hypertension history (0 or 1)
-- heart_disease: Heart disease history (0 or 1)
-- smoking_history: Smoking status
-- bmi: Body Mass Index
-- HbA1c_level: Hemoglobin A1c level
-- blood_glucose_level: Blood glucose level
-- diabetes: Target variable (0 or 1)
-
-
 ## Project Structure
 
 ```
@@ -53,7 +39,26 @@ project/
 └── requirements.txt
 ```
 
+
+
 ## Exploratory Data Analysis
+
+### About Dataset
+
+It is procured from Kaggle (Diabetes prediction dataset)[https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset]
+
+The Diabetes prediction dataset is a collection of medical and demographic data from patients, along with their diabetes status (positive or negative). The data includes features such as age, gender, body mass index (BMI), hypertension, heart disease, smoking history, HbA1c level, and blood glucose level. This dataset can be used to build machine learning models to predict diabetes in patients based on their medical history and demographic information. This can be useful for healthcare professionals in identifying patients who may be at risk of developing diabetes and in developing personalized treatment plans. Additionally, the dataset can be used by researchers to explore the relationships between various medical and demographic factors and the likelihood of developing diabetes.
+
+The dataset includes the following features:
+- gender: Patient's gender
+- age: Patient's age
+- hypertension: Hypertension history (0 or 1)
+- heart_disease: Heart disease history (0 or 1)
+- smoking_history: Smoking status
+- bmi: Body Mass Index
+- HbA1c_level: Hemoglobin A1c level
+- blood_glucose_level: Blood glucose level
+- diabetes: Target variable (0 or 1)
 
 Key insights from data analysis (`ingestion.ipynb`):
 1. Feature Distributions
