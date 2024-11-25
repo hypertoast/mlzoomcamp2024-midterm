@@ -46,6 +46,7 @@ project/
 │   └── predict.py             # Flask API implementation
 │   └── train.py               # Model training script
 ├── Dockerfile
+├── Pipfile
 └── requirements.txt
 ```
 
