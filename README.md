@@ -30,6 +30,29 @@ The dataset includes the following features:
 - diabetes: Target variable (0 or 1)
 
 
+## Project Structure
+
+```
+project/
+├── data/
+│   └── diabetes_dataset_processed.csv
+├── models/
+│   ├── final_model.pkl
+│   ├── threshold_optimization.pkl
+│   └── evaluation_results.pkl
+├── notebooks/
+│   ├── ingestion.ipynb         # Data Ingestion Pipeline + EDA
+│   ├── model_selection.ipynb    # Model comparison & selection
+│   ├── evaluate-1.ipynb        # Initial model evaluation
+│   ├── evaluate-2.ipynb        # Model tuning & optimization
+│   └── evaluate_final.ipynb    # Final model implementation
+├── scripts/
+│   └── predict.py             # Flask API implementation
+│   └── train.py               # Model training script
+├── Dockerfile
+└── requirements.txt
+```
+
 ## Exploratory Data Analysis
 
 Key insights from data analysis (`ingestion.ipynb`):
@@ -48,53 +71,74 @@ Key insights from data analysis (`ingestion.ipynb`):
    - Outlier handling using Z-score method
    - Feature correlations analyzed
 
-## Model Development
+## Analysis & Model Development Process
 
-1. Feature Selection
-   - Key correlations with diabetes:
-     * HbA1c_level: 0.296
-     * blood_glucose_level: 0.280
-     * cardiovascular_risk: 0.247
-     * bmi: 0.200
+### 1. Data Analysis & Feature Engineering (ingestion_slim.ipynb)
+- Data cleaning and preprocessing
+- Feature distribution analysis
+- Outlier detection and handling
+- Feature engineering:
+  * BMI categories
+  * HbA1c categories
+  * Glucose categories
+  * Cardiovascular risk score
+- Correlation analysis
 
-2. Model Training
-   - Algorithm: XGBoost Classifier
-   - Optimized threshold: 0.2
-   - Risk categorization system implemented
+### 2. Model Selection (model_selection.ipynb)
+Compared multiple models with comprehensive evaluation:
 
-### API Service
-- Flask-based REST API
-- JSON request/response format
-- Error handling and input validation
-- Risk categorization in responses
+| Model                | Accuracy | Precision | Recall   | F1       | ROC_AUC  |
+|---------------------|----------|-----------|----------|----------|----------|
+| Logistic Regression | 0.93880  | 0.760215  | 0.413934 | 0.536012 | 0.943884 |
+| Random Forest       | 0.95320  | 0.823826  | 0.574941 | 0.677241 | 0.957245 |
+| XGBoost            | 0.95935  | 0.888118  | 0.599532 | 0.715834 | 0.970273 |
 
-### Containerization
-- Docker implementation
-- Python 3.10 slim base image
-- Security considerations (non-root user)
-- Environment variable configuration
+XGBoost selected as final model due to:
+- Highest ROC-AUC score (0.970)
+- Best F1 score (0.716)
+- Superior precision-recall balance
 
-## Project Structure
+### 3. Model Optimization Process
+1. Initial Evaluation (evaluate-1.ipynb)
+   - Base XGBoost implementation
+   - Performance metrics analysis
+   - Cross-validation
 
-```
-project/
-├── data/
-│   └── diabetes_dataset_processed.csv
-├── models/
-│   ├── final_model.pkl
-│   ├── threshold_optimization.pkl
-│   └── evaluation_results.pkl
-├── notebooks/
-│   ├── ingestion.ipynb         # Data Ingestion Pipeline + EDA
-│   ├── evaluate-1.ipynb        # Initial model evaluation
-│   ├── evaluate-2.ipynb        # Model tuning & optimization
-│   └── evaluate_final.ipynb    # Final model implementation
-├── scripts/
-│   └── predict.py             # Flask API implementation
-│   └── train.py               # Model training script
-├── Dockerfile
-└── requirements.txt
-```
+2. Threshold Optimization (evaluate-2.ipynb)
+   - Medical context consideration
+   - Threshold analysis
+   - Risk category implementation
+
+3. Final Implementation (evaluate_final.ipynb)
+   - Implementation with optimized threshold
+   - Final validation
+   - Model export preparation
+
+## Model Training Process
+
+1. Initial Evaluation (evaluate-1.ipynb)
+   - Base model implementation with XGBoost
+   - Performance assessment
+   - Validation metrics:
+     * AUC-ROC
+     * Precision & Recall
+     * Confusion Matrix
+     * Cross-validation
+
+2. Threshold Optimization (evaluate-2.ipynb)
+   - Analysis of different prediction thresholds
+   - Optimization for medical context (prioritizing recall)
+   - Testing different thresholds:
+     * Conservative (0.5)
+     * Balanced (0.4)
+     * Sensitive (0.2)
+   - Risk category implementation
+
+3. Final Implementation (evaluate_final.ipynb)
+   - Implementation with optimized threshold (0.2)
+   - Risk categorization system
+   - Final model export
+   - Comprehensive test cases
 
 ## Model Details
 
@@ -122,6 +166,10 @@ project/
 - Very High Risk: > 80%
 
 ## API Usage
+- Flask-based REST API
+- JSON request/response format
+- Error handling and input validation
+- Risk categorization in responses
 
 ### Endpoint
 `POST /predict`
@@ -166,6 +214,11 @@ python scripts/predict.py
 ```
 
 ### Docker Deployment
+- Docker implementation
+- Python 3.10 slim base image
+- Security considerations (non-root user)
+- Environment variable configuration
+
 ```bash
 # Build Docker image
 docker build -t diabetes-prediction-api .
@@ -173,31 +226,6 @@ docker build -t diabetes-prediction-api .
 # Run container
 docker run -p 9696:9696 diabetes-prediction-api
 ```
-## Model Training Process
-
-1. Initial Evaluation (evaluate-1.ipynb)
-   - Base model implementation with XGBoost
-   - Performance assessment
-   - Validation metrics:
-     * AUC-ROC
-     * Precision & Recall
-     * Confusion Matrix
-     * Cross-validation
-
-2. Threshold Optimization (evaluate-2.ipynb)
-   - Analysis of different prediction thresholds
-   - Optimization for medical context (prioritizing recall)
-   - Testing different thresholds:
-     * Conservative (0.5)
-     * Balanced (0.4)
-     * Sensitive (0.2)
-   - Risk category implementation
-
-3. Final Implementation (evaluate_final.ipynb)
-   - Implementation with optimized threshold (0.2)
-   - Risk categorization system
-   - Final model export
-   - Comprehensive test cases
 
 ## Security Considerations
 
