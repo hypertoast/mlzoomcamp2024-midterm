@@ -245,7 +245,7 @@ python scripts/predict.py
 
 ### Docker Deployment
 - Docker implementation
-- Python 3.10 slim base image
+- Python 3.12 slim base image
 - Security considerations (non-root user)
 - Environment variable configuration
 
